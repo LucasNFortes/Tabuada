@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta charset="utf-8"/>
+    <title>Tabuada</title>
+    <style>
+      /* Add some basic styling */
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        padding: 20px;
+      }
+      /* Give the question and result text a larger font */
+      #question, #result {
+        font-size: 20px;
+        margin: 10px 0;
+      }
+      /* Center the input and button */
+      input[type="text"], button {
+        margin: 10px auto;
+        display: block;
+      }
+      /* Add some hover effect to the button */
+      button:hover {
+        cursor: pointer;
+        background-color: lightgray;
+      }
+      body {
+       zoom: 150%;
+      }
+      body {
+      /* Light mode styling */
+        background-color: white;
+        color: black;
+      }
+
+      .dark-mode {
+      /* Dark mode styling */
+        background-color: black;
+        color: white;
+      }
+      
+      img.logo {
+        float: inline-start;
+        margin-top: 0px;
+      }
+    </style>
+  </head>
+    <img class="logo" src="https://i.imgur.com/kFy7n3S.png" width="100"></img>
+  <body class="light-mode">
+    <button id="switch-theme">☾</button>
+    <h1>Jogo da Tabuada</h1>
+    <p>Resolva a dividendo abaixo:</p>
+    <p id="question"></p>
+    <input type="number" id="answer" pattern="[0-9]+" title="Por favor, digite apenas números" placeholder="Sua resposta aqui">
+    <button id="check-answer">Verificar</button>
+    <p id="result"></p>
+    <script>
+    const switchBtn = document.getElementById("switch-theme");
+    const body = document.querySelector("body");
+
+    switchBtn.addEventListener("click", function() {
+      if (body.classList.contains("light-mode")) {
+        body.classList.remove("light-mode");
+        body.classList.add("dark-mode");
+        switchBtn.innerHTML = "🌣";
+      } else {
+        body.classList.remove("dark-mode");
+        body.classList.add("light-mode");
+        switchBtn.innerHTML = "☾";
+      }
+    });
+    
+    var vidas = 10;
+    var num_of_question = 100; // number of question you want to ask
+    var current_question = 1;
+    var divisor = Math.floor(Math.random() * 80) + 1;
+    var dividendo = Math.floor(Math.random() * 10) + 1;
+    if (divisor % dividendo !== 0) {
+      while (divisor % dividendo !== 0) {
+        divisor = Math.floor(Math.random() * 80) + 1
+      }
+    };
+    resultado = divisor / dividendo;
+    var question = document.getElementById("question");
+    question.innerHTML = `${divisor} ÷ ${dividendo} = `;
+    var result = document.getElementById("result");
+    document.getElementById("check-answer").addEventListener("click", function(){
+        var resposta = parseInt(document.getElementById("answer").value);
+        document.getElementById("answer").addEventListener("input", function() {
+         if (!/^\d+$/.test(this.value)) {
+        this.value = this.value.slice(0,-1);
+            }
+        });
+        if (resposta === resultado) {
+          result.innerHTML = "Certo!";
+        }
+        else {
+          vidas--;
+          if (vidas > 0) {
+            result.innerHTML = `Errado, a resposta era ${resultado}. Estude mais! `;
+            result.innerHTML += `Você ainda tem ${vidas} vidas!`;
+          } 
+          else if (vidas === 0) {
+            result.innerHTML = `Errado, a resposta era ${resultado}. Você está na última vida :o`;
+          } 
+          else {
+            result.innerHTML = "Você perdeu. Ficou sem TV.          :(";
+            document.getElementById("check-answer").disabled = true;
+            document.getElementById("answer").disabled = true;
+          }
+        }
+        current_question++;
+        if(current_question <= num_of_question) {
+            divisor = Math.floor(Math.random() * 80) + 1;
+            dividendo = Math.floor(Math.random() * 10) + 1;
+            if (divisor % dividendo !== 0) {
+              while (divisor % dividendo !== 0) {
+                divisor = Math.floor(Math.random() * 80) + 1
+              }
+            };
+            resultado = divisor / dividendo;
+            question.innerHTML = `${divisor} ÷ ${dividendo} = `;
+            document.getElementById("answer").value = "";
+        }
+        else {
+            result.innerHTML += " Parabéns você zerou o Jogo!";
+        }
+    });
+    document.getElementById("answer").addEventListener("keyup", function(event) {
+      if (event.keyCode === 13) {
+    document.getElementById("check-answer").click();
+  }
+});
+    </script>
+  </body>
+</html>
+
