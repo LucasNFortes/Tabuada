@@ -5,7 +5,16 @@
     <meta charset="utf-8"/>
     <title>Tabuada</title>
     <style>
-      /* Add some basic styling */
+      .heart {
+        color: red;
+        display: inline-block;
+      }
+
+      #life-counter {
+        display: flex;
+        justify-content: center;
+      }
+
       body {
         font-family: Arial, sans-serif;
         text-align: center;
@@ -49,9 +58,12 @@
   </head>
     <img class="logo" src="https://i.imgur.com/kFy7n3S.png" width="100"></img>
   <body class="light-mode">
-    <button id="switch-theme">☾</button>
+    <button id="switch-theme">&#127761</button>
     <h1>Jogo da Tabuada</h1>
-    <p>Resolva a dividendo abaixo:</p>
+    <div id="life-counter">
+      <pre class="heart"></pre>
+    </div>
+    <p>Resolva a conta abaixo:</p>
     <p id="question"></p>
     <input type="number" id="answer" pattern="[0-9]+" title="Por favor, digite apenas números" placeholder="Sua resposta aqui">
     <button id="check-answer">Verificar</button>
@@ -64,11 +76,11 @@
       if (body.classList.contains("light-mode")) {
         body.classList.remove("light-mode");
         body.classList.add("dark-mode");
-        switchBtn.innerHTML = "🌣";
+        switchBtn.innerHTML = "<span>☀️</span>";
       } else {
         body.classList.remove("dark-mode");
         body.classList.add("light-mode");
-        switchBtn.innerHTML = "☾";
+        switchBtn.innerHTML = "<span>&#127761</span>";
       }
     });
     
@@ -77,6 +89,18 @@
     var current_question = 1;
     var divisor = Math.floor(Math.random() * 80) + 1;
     var dividendo = Math.floor(Math.random() * 10) + 1;
+
+    const lifeCounter = document.getElementById("life-counter");
+
+    function updateLifeCounter() {
+      lifeCounter.innerHTML = "";
+      for (let i = 0; i < vidas; i++) {
+        lifeCounter.innerHTML += `<pre class="heart">❤ </pre>`;
+      }
+    }
+
+    updateLifeCounter();
+
     if (divisor % dividendo !== 0) {
       while (divisor % dividendo !== 0) {
         divisor = Math.floor(Math.random() * 80) + 1
@@ -98,15 +122,16 @@
         }
         else {
           vidas--;
+          updateLifeCounter();
           if (vidas > 0) {
             result.innerHTML = `Errado, a resposta era ${resultado}. Estude mais! `;
             result.innerHTML += `Você ainda tem ${vidas} vidas!`;
           } 
           else if (vidas === 0) {
-            result.innerHTML = `Errado, a resposta era ${resultado}. Você está na última vida :o`;
+            result.innerHTML = `Errado, a resposta era ${resultado}. Você está na última vida! ` + '<span>&#128556</span>';
           } 
           else {
-            result.innerHTML = "Você perdeu. Ficou sem TV.          :(";
+            result.innerHTML = "Você perdeu. Ficou sem TV. " + "<span>&#128557</span>";
             document.getElementById("check-answer").disabled = true;
             document.getElementById("answer").disabled = true;
           }
@@ -125,7 +150,7 @@
             document.getElementById("answer").value = "";
         }
         else {
-            result.innerHTML += " Parabéns você zerou o Jogo!";
+            result.innerHTML += " Parabéns você zerou o Jogo! " + "<span>&#128525</span>";
         }
     });
     document.getElementById("answer").addEventListener("keyup", function(event) {

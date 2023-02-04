@@ -4,8 +4,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta charset="utf-8"/>
     <title>Tabuada</title>
-    <style>
-      /* Add some basic styling */
+    <style>      
+      .heart {
+        color: red;
+        display: inline-block;
+      }
+
+      #life-counter {
+        display: flex;
+        justify-content: center;
+      }
+
       body {
         font-family: Arial, sans-serif;
         text-align: center;
@@ -16,16 +25,19 @@
         font-size: 20px;
         margin: 10px 0;
       }
+
       /* Center the input and button */
       input[type="text"], button {
         margin: 10px auto;
         display: block;
       }
+
       /* Add some hover effect to the button */
       button:hover {
         cursor: pointer;
         background-color: lightgray;
       }
+
       body {
        zoom: 150%;
       }
@@ -55,8 +67,11 @@
   </head>
     <img class="logo" src="https://i.imgur.com/kFy7n3S.png" width="100"></img>
   <body class="light-mode">
-    <button id="switch-theme">☾</button>
+    <button id="switch-theme">&#127761</button>
     <h1>Jogo da Tabuada</h1>
+    <div id="life-counter">
+      <pre class="heart"></pre>
+    </div>
     <p>Resolva a conta abaixo:</p>
     <p id="question"></p>
     <input type="number" id="answer" pattern="[0-9]+" title="Por favor, digite apenas números" placeholder="Sua resposta aqui">
@@ -70,32 +85,45 @@
       if (body.classList.contains("light-mode")) {
         body.classList.remove("light-mode");
         body.classList.add("dark-mode");
-        switchBtn.innerHTML = "🌣";
+        switchBtn.innerHTML = "<span>☀️</span>";
       } else {
         body.classList.remove("dark-mode");
         body.classList.add("light-mode");
-        switchBtn.innerHTML = "☾";
+        switchBtn.innerHTML = "<span>&#127761</span>";
       }
     });
     
     var vidas = 10;
     var num_of_question = 100; // number of question you want to ask
     var current_question = 1;
-    var tabuada = Math.floor(Math.random() * 20) + 1;
-    var conta = Math.floor(Math.random() * 10) + 1;
-    if (tabuada - conta < 0) {
-      while (tabuada - conta < 0) {
-        tabuada = Math.floor(Math.random() * 20) + 1
+    var minuendo = Math.floor(Math.random() * 20) + 1;
+    var subtraendo = Math.floor(Math.random() * 10) + 1;
+ 
+    const lifeCounter = document.getElementById("life-counter");
+
+    function updateLifeCounter() {
+      lifeCounter.innerHTML = "";
+      for (let i = 0; i < vidas; i++) {
+        lifeCounter.innerHTML += `<pre class="heart">❤ </pre>`;
+      }
+    }
+
+    updateLifeCounter();
+
+    if (minuendo - subtraendo < 0) {
+      while (minuendo - subtraendo < 0) {
+        minuendo = Math.floor(Math.random() * 20) + 1
       }
     };
-    if (tabuada - conta > 10) {
-      while (tabuada - conta > 10) {
-        conta = Math.floor(Math.random() * 10) + 1
+    if (minuendo - subtraendo > 10) {
+      while (minuendo - subtraendo > 10) {
+        subtraendo = Math.floor(Math.random() * 10) + 1
       }
     };
-    var resultado = tabuada - conta;
+
+    var resultado = minuendo - subtraendo;
     var question = document.getElementById("question");
-    question.innerHTML = `${tabuada} - ${conta} = `;
+    question.innerHTML = `${minuendo} - ${subtraendo} = `;
     var result = document.getElementById("result");
     document.getElementById("check-answer").addEventListener("click", function(){
         var resposta = parseInt(document.getElementById("answer").value);
@@ -109,39 +137,40 @@
         }
         else {
           vidas--;
+          updateLifeCounter();
           if (vidas > 0) {
             result.innerHTML = `Errado, a resposta era ${resultado}. Estude mais! `;
             result.innerHTML += `Você ainda tem ${vidas} vidas!`;
           } 
           else if (vidas === 0) {
-            result.innerHTML = `Errado, a resposta era ${resultado}. Você está na última vida :o`;
+            result.innerHTML = `Errado, a resposta era ${resultado}. Você está na última vida! ` + '<span>&#128556</span>';
           } 
           else {
-            result.innerHTML = "Você perdeu. Ficou sem TV.          :(";
+            result.innerHTML = "Você perdeu. Ficou sem TV. " + "<span>&#128557</span>";
             document.getElementById("check-answer").disabled = true;
             document.getElementById("answer").disabled = true;
           }
         }
         current_question++;
         if(current_question <= num_of_question) {
-            tabuada = Math.floor(Math.random() * 20) + 1;
-            conta = Math.floor(Math.random() * 10) + 1;
-            if (tabuada - conta < 0) {
-              while (tabuada - conta < 0) {
-                tabuada = Math.floor(Math.random() * 20) + 1
+            minuendo = Math.floor(Math.random() * 20) + 1;
+            subtraendo = Math.floor(Math.random() * 10) + 1;
+            if (minuendo - subtraendo < 0) {
+              while (minuendo - subtraendo < 0) {
+                minuendo = Math.floor(Math.random() * 20) + 1
               }
             };
-            if (tabuada - conta > 10) {
-              while (tabuada - conta > 10) {
-              conta = Math.floor(Math.random() * 10) + 1
+            if (minuendo - subtraendo > 10) {
+              while (minuendo - subtraendo > 10) {
+              subtraendo = Math.floor(Math.random() * 10) + 1
               }
             };
-            resultado = tabuada - conta;
-            question.innerHTML = `${tabuada} - ${conta} = `;
+            resultado = minuendo - subtraendo;
+            question.innerHTML = `${minuendo} - ${subtraendo} = `;
             document.getElementById("answer").value = "";
         }
         else {
-            result.innerHTML += " Parabéns você zerou o Jogo!";
+            result.innerHTML += " Parabéns você zerou o Jogo! " + "<span>&#128525</span>";
         }
     });
     document.getElementById("answer").addEventListener("keyup", function(event) {

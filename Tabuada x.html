@@ -3,9 +3,18 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta charset="utf-8"/>
-    <title>Tabuada</title>
+    <title>fator1</title>
     <style>
-      /* Add some basic styling */
+      .heart {
+        color: red;
+        display: inline-block;
+      }
+
+      #life-counter {
+        display: flex;
+        justify-content: center;
+      }
+
       body {
         font-family: Arial, sans-serif;
         text-align: center;
@@ -49,8 +58,11 @@
   </head>
     <img class="logo" src="https://i.imgur.com/kFy7n3S.png" width="100"></img>
   <body class="light-mode">
-    <button id="switch-theme">☾</button>
-    <h1>Jogo da Tabuada</h1>
+    <button id="switch-theme">&#127761</button>
+    <h1>Jogo da tabuada</h1>
+    <div id="life-counter">
+      <pre class="heart"></pre>
+    </div>
     <p>Resolva a conta abaixo:</p>
     <p id="question"></p>
     <input type="number" id="answer" pattern="[0-9]+" title="Por favor, digite apenas números" placeholder="Sua resposta aqui">
@@ -64,23 +76,35 @@
       if (body.classList.contains("light-mode")) {
         body.classList.remove("light-mode");
         body.classList.add("dark-mode");
-        switchBtn.innerHTML = "🌣";
+        switchBtn.innerHTML = "<span>☀️</span>";
       } else {
         body.classList.remove("dark-mode");
         body.classList.add("light-mode");
-        switchBtn.innerHTML = "☾";
+        switchBtn.innerHTML = "<span>&#127761</span>";
       }
     });
     
     var vidas = 10;
     var num_of_question = 100; // number of question you want to ask
     var current_question = 1;
-    var tabuada = Math.floor(Math.random() * 10) + 1;
-    var conta = Math.floor(Math.random() * 10) + 1;
-    var resultado = tabuada * conta;
+    var fator1 = Math.floor(Math.random() * 10) + 1;
+    var fator2 = Math.floor(Math.random() * 10) + 1;
+    var resultado = fator1 * fator2;
     var question = document.getElementById("question");
-    question.innerHTML = `${tabuada} x ${conta} = `;
+    question.innerHTML = `${fator1} x ${fator2} = `;
     var result = document.getElementById("result");
+
+    const lifeCounter = document.getElementById("life-counter");
+
+    function updateLifeCounter() {
+      lifeCounter.innerHTML = "";
+      for (let i = 0; i < vidas; i++) {
+        lifeCounter.innerHTML += `<pre class="heart">❤ </pre>`;
+      }
+    }
+
+    updateLifeCounter();
+
     document.getElementById("check-answer").addEventListener("click", function(){
         var resposta = parseInt(document.getElementById("answer").value);
         document.getElementById("answer").addEventListener("input", function() {
@@ -93,36 +117,37 @@
         }
         else {
           vidas--;
+          updateLifeCounter();
           if (vidas > 0) {
             result.innerHTML = `Errado, a resposta era ${resultado}. Estude mais! `;
             result.innerHTML += `Você ainda tem ${vidas} vidas!`;
           } 
           else if (vidas === 0) {
-            result.innerHTML = `Errado, a resposta era ${resultado}. Você está na última vida :o`;
+            result.innerHTML = `Errado, a resposta era ${resultado}. Você está na última vida! ` + '<span>&#128556</span>';
           } 
           else {
-            result.innerHTML = "Você perdeu. Ficou sem TV.          :(";
+            result.innerHTML = "Você perdeu. Ficou sem TV. " + "<span>&#128557</span>";
             document.getElementById("check-answer").disabled = true;
             document.getElementById("answer").disabled = true;
           }
         }
         current_question++;
         if(current_question <= num_of_question) {
-            tabuada = Math.floor(Math.random() * 10) + 1;
-            conta = Math.floor(Math.random() * 10) + 1;
-            resultado = tabuada * conta;
-            question.innerHTML = `${tabuada} x ${conta} = `;
+            fator1 = Math.floor(Math.random() * 10) + 1;
+            fator2 = Math.floor(Math.random() * 10) + 1;
+            resultado = fator1 * fator2;
+            question.innerHTML = `${fator1} x ${fator2} = `;
             document.getElementById("answer").value = "";
         }
         else {
-            result.innerHTML += " Parabéns você zerou o Jogo!";
+            result.innerHTML += " Parabéns você zerou o Jogo! " + "<span>&#128525</span>";
         }
     });
     document.getElementById("answer").addEventListener("keyup", function(event) {
       if (event.keyCode === 13) {
-    document.getElementById("check-answer").click();
-  }
-});
+        document.getElementById("check-answer").click();
+      }
+    });
     </script>
   </body>
 </html>
