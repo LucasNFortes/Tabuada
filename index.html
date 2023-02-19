@@ -6,6 +6,10 @@
 <head>
   <title></title>
   <style>
+    a {
+      text-decoration: none;
+    }
+
     body {
       overflow: hidden;
       font-family: Arial, sans-serif;
@@ -96,50 +100,52 @@
   <table>
     <tr>
       <td>
-        <button id="soma"><a href="tabuada-soma.html">+</a></button>
+        <button id="soma" style="font-size: 50px" onclick="location.href='tabuada-soma.html';">+</button>
       </td>
       <td>
-        <button id="subtracao"><a href="tabuada-subtracao.html">-</a></button>
+        <button id="subtracao" style="font-size: 50px" onclick="location.href='tabuada-subtracao.html';">-</button>
       </td>
     </tr>
     <tr>
       <td>
-        <button id="multiplicação"><a href="tabuada-multiplicacao.html">x</a></button>
+        <button id="multiplicação" style="font-size: 50px"
+          onclick="location.href='tabuada-multiplicacao.html';">x</button>
       </td>
       <td>
-        <button id="divisao"><a href="tabuada-divisao.html">÷</a></button>
+        <button id="divisao" style="font-size: 50px" onclick="location.href='tabuada-divisao.html';">÷</button>
       </td>
     </tr>
   </table>
+</body>
 
-  <script>
+<script>
 
-    const switchBtn = document.getElementById("switch-theme");
-    const body = document.querySelector("body");
+  const switchBtn = document.getElementById("switch-theme");
+  const body = document.querySelector("body");
 
-    switchBtn.addEventListener("click", function () {
-      if (body.classList.contains("light-mode")) {
-        body.classList.remove("light-mode");
-        body.classList.add("dark-mode");
-        switchBtn.innerHTML = "<span>☀️</span>";
-      } else {
-        body.classList.remove("dark-mode");
-        body.classList.add("light-mode");
-        switchBtn.innerHTML = "<span>&#127761</span>";
-      }
-    });
-  </script>
-  <footer>
-    <div class="site-info"
-      style="display: flex; justify-content: center; align-items: center; font-size: 10px; font-family: arial;">
-      <p> LucasNFortes &copy; <span id="year"></span> Todos os direitos reservados | Desenvolvido por <a
-          href="https://www.lucasnfortes.com.br/">LucasNFortes</a></p>
-    </div>
-  </footer>
+  switchBtn.addEventListener("click", function () {
+    if (body.classList.contains("light-mode")) {
+      body.classList.remove("light-mode");
+      body.classList.add("dark-mode");
+      switchBtn.innerHTML = "<span>☀️</span>";
+    } else {
+      body.classList.remove("dark-mode");
+      body.classList.add("light-mode");
+      switchBtn.innerHTML = "<span>&#127761</span>";
+    }
+  });
+</script>
+<footer>
+  <div class="site-info"
+    style="display: flex; justify-content: center; align-items: center; font-size: 10px; font-family: arial;">
+    <p> LucasNFortes &copy; <span id="year"></span> Todos os direitos reservados | Desenvolvido por <a
+        href="https://www.lucasnfortes.com.br/">LucasNFortes</a></p>
+  </div>
+</footer>
 
-  <script>
-    document.getElementById("year").innerHTML = new Date().getFullYear();
-  </script>
+<script>
+  document.getElementById("year").innerHTML = new Date().getFullYear();
+</script>
 </body>
 
 </html>

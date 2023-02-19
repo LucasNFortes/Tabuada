@@ -6,6 +6,10 @@
 <head>
   <title></title>
   <style>
+    a {
+      text-decoration: none;
+    }
+
     .heart {
       color: red;
       display: inline-block;
@@ -78,7 +82,7 @@
       color: #000000;
 
     }
- 
+
     #switch-theme {
       position: absolute;
       top: 5%;
@@ -89,6 +93,10 @@
     #answer {
       width: 15vw;
       height: 5vw;
+    }
+
+    .inline {
+      display: inline-block;
     }
   </style>
 </head>
@@ -103,7 +111,14 @@
   <p>Resolva a conta abaixo:</p>
   <p id="question"></p>
   <input type="number" id="answer" pattern="[0-9]+" title="Por favor, digite apenas números" placeholder="Resposta">
-  <button id="check-answer">Verificar</button>
+  <div>
+    <div class="inline">
+      <button id="check-answer">Verificar</button>
+    </div>
+    <div class="inline">
+      <button id="voltar" onclick="location.href='index.html';">Voltar</button>
+    </div>
+  </div>
   <p id="result"></p>
   <script>
     const switchBtn = document.getElementById("switch-theme");
