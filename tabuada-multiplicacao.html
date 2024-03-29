@@ -22,7 +22,7 @@
       left: 50%;
       transform: translate(-50%, -50%);
       justify-content: center;
-      width: 80%;
+      width: 50vw;
     }
 
     body {
@@ -68,10 +68,10 @@
     img.logo {
       float: inline-start;
       position: absolute;
-      top: 7%;
-      left: 7%;
+      top: 10%;
+      left: 10%;
       transform: translate(-50%, -50%);
-      width: 50px;
+      width: 7vw;
     }
 
     footer {
@@ -143,7 +143,7 @@
     var fator2 = Math.floor(Math.random() * 10) + 1;
     var resultado = fator1 * fator2;
     var question = document.getElementById("question");
-    question.innerHTML = `${fator1} x ${fator2} = `;
+    question.innerHTML = `${fator1} . ${fator2} = `;
     var result = document.getElementById("result");
 
     const lifeCounter = document.getElementById("life-counter");
@@ -205,7 +205,7 @@
     <div class="site-info"
       style="display: flex; justify-content: center; align-items: center; font-size: 10px; font-family: arial;">
       <p> LucasNFortes &copy; <span id="year"></span> Todos os direitos reservados | Desenvolvido por <a
-          href="https://www.lucasnfortes.com.br/">LucasNFortes</a></p>
+          href="http://www.lucasnfortes.com.br/">LucasNFortes</a></p>
     </div>
   </footer>
 

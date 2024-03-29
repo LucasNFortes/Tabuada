@@ -100,11 +100,11 @@
     }
   </style>
 </head>
-<img class="logo" src="https://i.imgur.com/kFy7n3S.png" width="100"></img>
+<img class="logo" src="https://i.imgur.com/kFy7n3S.png"></img>
 
 <body class="light-mode">
   <button id="switch-theme">&#127761</button>
-  <h1>Soma</h1>
+  <h1>Potenciação</h1>
   <div id="life-counter">
     <pre class="heart"></pre>
   </div>
@@ -139,11 +139,16 @@
     var vidas = 10;
     var num_of_question = 100; // number of question you want to ask
     var current_question = 1;
-    var parcela1 = Math.floor(Math.random() * 10) + 1;
-    var parcela2 = Math.floor(Math.random() * 10) + 1;
-    var resultado = parcela1 + parcela2;
+
+    function getRandomInteger(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    var base = getRandomInteger(1, 13); // gera bases aleatórias de 1 a 13
+    var expoente = getRandomInteger(2, 3); // gera expoentes aleatórios de 2 a 3
+    var resultado = Math.pow(base, expoente);
     var question = document.getElementById("question");
-    question.innerHTML = `${parcela1} + ${parcela2} = `;
+    question.innerHTML = `${base}<sup>${expoente}</sup> = `;
     var result = document.getElementById("result");
 
     const lifeCounter = document.getElementById("life-counter");
@@ -158,7 +163,7 @@
     updateLifeCounter();
 
     document.getElementById("check-answer").addEventListener("click", function () {
-      var resposta = parseInt(document.getElementById("answer").value);
+      var resposta = parseFloat(document.getElementById("answer").value);
       document.getElementById("answer").addEventListener("input", function () {
         if (!/^\d+$/.test(this.value)) {
           this.value = this.value.slice(0, -1);
@@ -185,10 +190,10 @@
       }
       current_question++;
       if (current_question <= num_of_question) {
-        parcela1 = Math.floor(Math.random() * 10) + 1;
-        parcela2 = Math.floor(Math.random() * 10) + 1;
-        resultado = parcela1 + parcela2;
-        question.innerHTML = `${parcela1} + ${parcela2} = `;
+        base = getRandomInteger(1, 13); // gera bases aleatórias de 1 a 13
+        expoente = getRandomInteger(2, 3); // gera expoentes aleatórios de 2 a 3
+        resultado = Math.pow(base, expoente);
+        question.innerHTML = `${base}<sup>${expoente}</sup> = `;
         document.getElementById("answer").value = "";
       }
       else {

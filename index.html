@@ -27,6 +27,9 @@
       width: 60px;
       border-radius: 7px;
       border: 0;
+      /* display: flex;
+      justify-content: center;
+      align-items: center; */
     }
 
     button:hover {
@@ -47,8 +50,8 @@
     img.logo {
       float: inline-start;
       position: absolute;
-      top: 7%;
-      left: 7%;
+      top: 10%;
+      left: 10%;
       transform: translate(-50%, -50%);
       width: 10vw;
     }
@@ -95,8 +98,8 @@
 <img class="logo" src="https://i.imgur.com/kFy7n3S.png" width="100"></img>
 
 <body class="light-mode">
-  <button id="switch-theme">&#127761</button>
   <h1>Escolha</h1>
+  <button id="switch-theme">&#127761</button>  
   <table>
     <tr>
       <td>
@@ -108,11 +111,20 @@
     </tr>
     <tr>
       <td>
-        <button id="multiplicação" style="font-size: 50px"
-          onclick="location.href='tabuada-multiplicacao.html';">x</button>
+        <button id="multiplicacao" style="font-size: 50px"
+          onclick="location.href='tabuada-multiplicacao.html';">.</button>
       </td>
       <td>
-        <button id="divisao" style="font-size: 50px" onclick="location.href='tabuada-divisao.html';">÷</button>
+        <button id="divisao" style="font-size: 50px" onclick="location.href='tabuada-potenciacao.html';">:</button>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <button id="potenciacao" style="font-size: 50px"
+          onclick="location.href='tabuada-multiplicacao.html';">x<sup>x</sup></button>
+      </td>
+      <td>
+        <button id="radiciacao" style="font-size: 50px" onclick="location.href='tabuada-radiciacao.html';">√</button>
       </td>
     </tr>
   </table>
@@ -139,7 +151,7 @@
   <div class="site-info"
     style="display: flex; justify-content: center; align-items: center; font-size: 10px; font-family: arial;">
     <p> LucasNFortes &copy; <span id="year"></span> Todos os direitos reservados | Desenvolvido por <a
-        href="https://www.lucasnfortes.com.br/">LucasNFortes</a></p>
+        href="http://www.lucasnfortes.com.br/">LucasNFortes</a></p>
   </div>
 </footer>
 
